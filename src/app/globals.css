@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+/* =========================================
+   Obsidian Door Theme (Noir Tech)
+   - Dark, cinematic, premium
+   - Accent: Ion Blue
+========================================= */
+
+@layer base {
+  :root {
+    /* Use HSL so opacity utilities + shadcn conventions work cleanly */
+    --background: 240 6% 3%;          /* #050508 */
+    --foreground: 0 0% 96%;           /* #F2F3F5 */
+
+    --card: 240 10% 6%;               /* #0B0B10 */
+    --card-foreground: 0 0% 96%;
+
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 96%;
+
+    --muted: 240 8% 10%;              /* #11111A-ish */
+    --muted-foreground: 230 8% 68%;   /* #A1A5B3 */
+
+    --border: 0 0% 100% / 0.10;       /* rgba(255,255,255,0.10) */
+    --input: 0 0% 100% / 0.10;
+
+    --primary: 191 100% 50%;          /* #00D1FF */
+    --primary-foreground: 200 40% 6%; /* #061014 */
+
+    --ring: 191 100% 50%;
+
+    /* Optional tokens (handy) */
+    --danger: 350 100% 62%;           /* #FF3B5C */
+    --radius: 14px;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: hsla(var(--primary) / 0.25);
+  }
+
+  /* Default focus style (keyboard = premium) */
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsla(var(--primary) / 0.35);
+    border-radius: calc(var(--radius) - 2px);
+  }
+}
+
+@layer components {
+  /* -------- Layout helpers -------- */
+  .container-max {
+    @apply mx-auto w-full max-w-6xl px-6;
+  }
+
+  /* -------- Hero tint for the door frame -------- */
+  .hero-tint {
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.72),
+        rgba(0, 0, 0, 0.35),
+        rgba(0, 0, 0, 0.78)
+      ),
+      radial-gradient(
+        circle at 50% 40%,
+        rgba(0, 0, 0, 0.00),
+        rgba(0, 0, 0, 0.55)
+      );
+  }
+
+  /* Optional grain overlay (subtle) */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    opacity: 0.18;
+  }
+
+  /* -------- Surfaces / Cards -------- */
+  .card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md transition;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+  .card:hover {
+    @apply border-white/15 bg-white/[0.055];
+    transform: translateY(-1px);
+  }
+
+  /* -------- Buttons -------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 select-none
+           rounded-[14px] px-5 h-11 text-sm font-medium
+           transition active:translate-y-[1px];
+  }
+
+  .btn-primary {
+    @apply btn;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 10px 30px rgba(0, 209, 255, 0.18);
+  }
+  .btn-primary:hover { filter: brightness(1.1); }
+  .btn-primary:active { filter: brightness(0.95); }
+
+  .btn-secondary {
+    @apply btn border border-white/15 bg-transparent text-white;
+  }
+  .btn-secondary:hover { @apply bg-white/5; }
+  .btn-secondary:active { @apply bg-white/10; }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 select-none
+           rounded-[14px] px-4 h-11 text-sm font-medium
+           text-white/85 transition;
+  }
+  .btn-ghost:hover { @apply bg-white/5 text-white; }
+
+  /* -------- Inputs -------- */
+  .input {
+    @apply h-11 w-full rounded-[14px] border border-white/10
+           bg-[#11111A] text-white px-4 text-sm transition;
+  }
+  .input::placeholder { color: rgba(242, 243, 245, 0.35); }
+  .input:focus {
+    border-color: rgba(0, 209, 255, 0.8);
+    box-shadow: 0 0 0 2px rgba(0, 209, 255, 0.25);
+    outline: none;
+  }
+
+  .textarea {
+    @apply w-full rounded-[14px] border border-white/10
+           bg-[#11111A] text-white px-4 py-3 text-sm transition;
+    min-height: 120px;
+  }
+  .textarea::placeholder { color: rgba(242, 243, 245, 0.35); }
+  .textarea:focus {
+    border-color: rgba(0, 209, 255, 0.8);
+    box-shadow: 0 0 0 2px rgba(0, 209, 255, 0.25);
+    outline: none;
+  }
+
+  /* -------- Badges / Chips -------- */
+  .badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium;
+    background: rgba(0, 209, 255, 0.12);
+    color: rgb(0, 209, 255);
+    border: 1px solid rgba(0, 209, 255, 0.20);
+  }
+
+  /* -------- Navbar glass -------- */
+  .nav-glass {
+    @apply border-b border-white/10 bg-black/20 backdrop-blur-md;
+  }
+
+  /* -------- Dividers -------- */
+  .divider {
+    @apply h-px w-full bg-white/10;
+  }
+
+  /* -------- Subtle glow utility -------- */
+  .glow-primary {
+    box-shadow: 0 0 0 1px rgba(0, 209, 255, 0.15), 0 20px 80px rgba(0, 209, 255, 0.08);
+  }
+}
