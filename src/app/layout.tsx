@@ -27,7 +27,17 @@ export default function RootLayout({
 			<head>
 				<link rel="icon" href="/favicon.svg" type="image/svg+xml"></link>
 			</head>
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+			<body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				<div className="relative min-h-screen">
+					<div
+						className="last-frame-bg"
+						aria-hidden="true"
+						style={{ backgroundImage: `url('/intro-upscaled/ezgif-frame-202.jpg')` }}
+					/>
+					<div className="moving-glow" aria-hidden="true" />
+					<div className="relative z-10">{children}</div>
+				</div>
+			</body>
 		</html>
 	);
 }

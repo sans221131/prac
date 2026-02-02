@@ -105,7 +105,9 @@
   }
 
   .btn-primary {
-    @apply btn;
+    @apply inline-flex items-center justify-center gap-2 select-none
+           rounded-[14px] px-5 h-11 text-sm font-medium
+           transition active:translate-y-[1px];
     background: hsl(var(--primary));
     color: hsl(var(--primary-foreground));
     box-shadow: 0 10px 30px rgba(0, 209, 255, 0.18);
@@ -114,7 +116,9 @@
   .btn-primary:active { filter: brightness(0.95); }
 
   .btn-secondary {
-    @apply btn border border-white/15 bg-transparent text-white;
+    @apply inline-flex items-center justify-center gap-2 select-none
+           rounded-[14px] px-5 h-11 text-sm font-medium
+           transition active:translate-y-[1px] border border-white/15 bg-transparent text-white;
   }
   .btn-secondary:hover { @apply bg-white/5; }
   .btn-secondary:active { @apply bg-white/10; }
@@ -171,5 +175,60 @@
   /* -------- Subtle glow utility -------- */
   .glow-primary {
     box-shadow: 0 0 0 1px rgba(0, 209, 255, 0.15), 0 20px 80px rgba(0, 209, 255, 0.08);
+  }
+
+  /* -------- Moving page-wide glow overlay -------- */
+  @keyframes glow-move {
+    0% {
+      background-position: 0% 50%;
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      background-position: 100% 50%;
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      background-position: 0% 50%;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .moving-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.55;
+    filter: blur(44px) saturate(120%);
+    background-repeat: no-repeat;
+    background-size: 240% 240%;
+    background-image: radial-gradient(circle at 15% 30%, rgba(0,209,255,0.22) 0%, rgba(0,209,255,0.10) 12%, transparent 36%),
+                      radial-gradient(circle at 78% 68%, rgba(0,140,255,0.18) 0%, rgba(0,140,255,0.08) 18%, transparent 44%),
+                      radial-gradient(circle at 50% 15%, rgba(0,100,255,0.10) 0%, transparent 30%);
+    animation: glow-move 14s ease-in-out infinite;
+    will-change: transform, background-position, opacity;
+  }
+
+  /* Last intro frame used as a full-screen background behind content */
+  .last-frame-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    opacity: 1;
+    filter: brightness(0.28) contrast(0.98) saturate(0.9);
+    transform: translateZ(0);
+    pointer-events: none;
+    will-change: opacity, transform, filter;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .moving-glow {
+      animation: none;
+      filter: blur(46px);
+    }
   }
 }

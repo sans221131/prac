@@ -13,10 +13,20 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
 	},
 	"dependencies": {
+		"@gsap/react": "^2.1.2",
+		"@hookform/resolvers": "^5.2.2",
 		"@opennextjs/cloudflare": "^1.15.1",
+		"@studio-freight/lenis": "^1.0.42",
+		"clsx": "^2.1.1",
+		"gsap": "^3.14.2",
 		"next": "16.1.4",
 		"react": "19.1.4",
-		"react-dom": "19.1.4"
+		"react-dom": "19.1.4",
+		"react-hook-form": "^7.71.1",
+		"react-use-measure": "^2.1.7",
+		"split-type": "^0.3.4",
+		"tailwind-merge": "^3.4.0",
+		"zod": "^4.3.6"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",
